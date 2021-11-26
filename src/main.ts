@@ -1,5 +1,6 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 import { CreepManager } from "tools/creep-manager";
+import { RoomManager } from "./tools/room/room-manager";
 
 declare global {
   // Memory extension samples
@@ -25,7 +26,8 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-    CreepManager.CreateCreeps();
-    CreepManager.Run();
-    CreepManager.CleanUp();
+  // RoomManager.run(new Room("W32N23"));
+  CreepManager.CreateCreeps();
+  CreepManager.Run();
+  CreepManager.CleanUp();
 });

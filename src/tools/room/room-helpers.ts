@@ -10,6 +10,14 @@ export class RoomHelpers {
     })[0] as StructureSpawn;
   }
 
+  public static findRoomController(room: Room): StructureController {
+    return room.find(FIND_STRUCTURES, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_CONTROLLER
+      }
+    })[0] as StructureController;
+  }
+
   public static findEnergyFillableStructures(room: Room): EnergyFillableStructure[] {
     return room.find(FIND_STRUCTURES, {
       filter: (structure) => {
