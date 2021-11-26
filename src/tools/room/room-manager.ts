@@ -1,9 +1,38 @@
+import { Linq } from "../../utils/linq";
 import { RoomHelpers } from "./room-helpers";
 
 export class RoomManager {
   static run(room: Room): void {
-    this.buildRoadsBetweenSourcesAndSpawner(room);
-    this.buildRoadsBetweenSpawnerAndController(room);
+    this.setupRoomMemory(room);
+
+    // this.buildRoadsBetweenSourcesAndSpawner(room);
+    // this.buildRoadsBetweenSpawnerAndController(room);
+  }
+
+  static setupRoomMemory(room: Room): void {
+    if (!this.doesMemoryHaveRoom(room)) {
+      const sources = Linq.map(RoomHelpers.findSourcesInRoom(room), s => {
+        return {
+          id: s.id.toString(),
+          available_mining_positions: RoomHelpers.availableSpacesAroundPosition(s.pos),
+          used_mining_positions: 0
+        } as SourceData;
+      });
+      const roomData: RoomData = {
+        name: room.name,
+        sources: sources
+      };
+
+      Memory.roomData.push(roomData);
+    }
+  }
+
+  static doesMemoryHaveRoom(room: Room): boolean {
+    if (Memory.roomData === undefined) {
+      Memory.roomData = [];
+    }
+
+    return Memory.roomData?.some(r => r.name === room.name) ?? false;
   }
 
   static buildRoadsBetweenSpawnerAndController(room: Room): void {

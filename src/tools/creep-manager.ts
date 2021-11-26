@@ -19,7 +19,7 @@ export class CreepManager {
     const builderCount = CreepHelpers.getBuilders().length;
     const creepCount = CreepHelpers.getCreeps().length;
 
-    if (harvestersCount > MIN_HARVESTERS) {
+    if (harvestersCount > MAX_HARVESTERS) {
       if (upgraderCount < MIN_UPGRADERS) {
         console.log("Killing harvester to create room for upgrader!");
         const harvesters = CreepHelpers.getHarvesters();

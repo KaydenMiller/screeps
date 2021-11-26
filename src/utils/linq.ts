@@ -22,4 +22,12 @@ export class Linq {
 
     return smallestObject;
   }
+
+  static map<T, O>(source: T[], mapper: (item: T) => O): O[] {
+    const result: O[] = [];
+    source.forEach(item => {
+      result.push(mapper(item));
+    });
+    return result;
+  }
 }

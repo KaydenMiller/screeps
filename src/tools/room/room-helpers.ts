@@ -30,6 +30,12 @@ export class RoomHelpers {
     });
   }
 
+  public static availableSpacesAroundPosition(pos: RoomPosition): number {
+    return Game.rooms[pos.roomName].lookForAtArea(LOOK_TERRAIN, pos.y - 1, pos.x - 1, pos.y + 1, pos.x + 1, true)
+      .filter(t => t.terrain === "plain" || t.terrain === "swamp")
+      .length;
+  }
+
   public static findSourcesInRoom(room: Room): Source[] {
     return room.find(FIND_SOURCES);
   }
